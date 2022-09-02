@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { magic } from "../lib/magic-client";
 
 import styles from "../styles/Login.module.css";
 
@@ -24,12 +25,20 @@ const Login = () => {
     e.preventDefault();
 
     if (email) {
-      // route to dashboard
-      if (email === "kulkarni.ankita09@gmail.com") {
-        // route to dashboard
-        router.push("/");
+      if (email === "richardsinaga261@gmail.com") {
+        //  log in a user by their email
+        try {
+          const didToken = await magic.auth.loginWithMagicLink({
+            email,
+          });
+          console.log({ didToken });
+        } catch (error) {
+          // Handle errors if required!
+          console.error("Something went wrong logging in", error);
+        }
+        // router.push("/");
       } else {
-        console.log("Something went wrong logging in");
+        setUserMsg("Something went wrong logging in");
       }
     } else {
       // show user message
