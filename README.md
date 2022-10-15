@@ -1,3 +1,9 @@
+# Preview
+
+![ss1](/assets/ss1.png)
+
+I made this project from udemy course name **Complete Next.js Developer in 2022: Zero to Mastery**. This project is to clone netflix website with Youtube API and GraphQL but this project is not done yet.
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
