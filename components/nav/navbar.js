@@ -1,22 +1,20 @@
 import { useState, useEffect } from "react";
 import styles from "./navbar.module.css";
-
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import { magic } from "../../lib/magic-client";
-
 const NavBar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [username, setUsername] = useState("");
   const router = useRouter();
-
   useEffect(() => {
     async function getUsername() {
       try {
-        const { email } = await magic.user.getMetadata();
+        const { email, issuer } = await magic.user.getMetadata();
+        const didToken = await magic.user.getIdToken();
+        console.log({ didToken });
         if (email) {
-          console.log(email);
           setUsername(email);
         }
       } catch (error) {
@@ -25,7 +23,6 @@ const NavBar = () => {
     }
     getUsername();
   }, []);
-
   const handleOnClickHome = (e) => {
     e.preventDefault();
     router.push("/");
@@ -38,10 +35,8 @@ const NavBar = () => {
     e.preventDefault();
     setShowDropdown(!showDropdown);
   };
-
   const handleSignout = async (e) => {
     e.preventDefault();
-
     try {
       await magic.user.logout();
       console.log(await magic.user.isLoggedIn());
@@ -51,7 +46,6 @@ const NavBar = () => {
       router.push("/login");
     }
   };
-
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
