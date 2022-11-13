@@ -8,7 +8,6 @@
   bottom: 40px;
   background-color: var(--black40);
   top: 10%;
-
   outline: none;
   border-radius: 10px;
   border: 1px solid var(--shadow10);
@@ -46,7 +45,6 @@
   grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
   column-gap: 2em;
 }
-
 .col1 {
   max-height: 50vh /* 208px */;
   overflow-y: hidden;
@@ -94,4 +92,29 @@
   .modal {
     width: 100%;
   }
+}
+
+/** LikeDislike */
+
+.likeDislikeBtnWrapper {
+  display: flex;
+  margin-bottom: 0.75rem /* 12px */;
+  position: absolute;
+  top: 35%;
+  padding-left: 1rem /* 48px */;
+}
+
+.btnWrapper {
+  border-color: var(--white10);
+  border-style: solid;
+  border-width: 2px;
+  background-color: var(--gray40);
+  border-radius: 9999px;
+  padding: 0.5rem /* 8px */;
+  display: flex;
+  justify-content: center;
+}
+
+.likeBtnWrapper {
+  margin-right: 0.5rem /* 8px */;
 }
