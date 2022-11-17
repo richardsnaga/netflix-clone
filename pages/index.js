@@ -8,11 +8,21 @@ import {
   getVideos,
   getWatchItAgainVideos,
 } from "../lib/videos";
+import { redirectUser } from "../utils/redirectUser";
 export async function getServerSideProps(context) {
-  const token = context.req ? context.req?.cookies.token : null;
-  console.log({ token });
-  const userId = "did:ethr:0x221f38dbB6c480A96E90cbBcD3DE6Adb0F3c8396";
+  const { userId, token } = await redirectUser(context);
+
+  if (!userId) {
+    return {
+      props: {},
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
   const watchItAgainVideos = await getWatchItAgainVideos(userId, token);
+
   console.log({ watchItAgainVideos });
   const disneyVideos = await getVideos("disney trailer");
   const productivityVideos = await getVideos("Productivity");
@@ -50,7 +60,6 @@ export default function Home({
           subTitle="a very cute dog"
           imgUrl="/static/clifford.webp"
         />
-
         <div className={styles.sectionWrapper}>
           <SectionCards title="Disney" videos={disneyVideos} size="large" />
           <SectionCards
