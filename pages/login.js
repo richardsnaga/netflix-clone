@@ -13,16 +13,13 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [userMsg, setUserMsg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
   const router = useRouter();
-
   useEffect(() => {
     const handleComplete = () => {
       setIsLoading(false);
     };
     router.events.on("routeChangeComplete", handleComplete);
     router.events.on("routeChangeError", handleComplete);
-
     return () => {
       router.events.off("routeChangeComplete", handleComplete);
       router.events.off("routeChangeError", handleComplete);
@@ -79,7 +76,6 @@ const Login = () => {
       <Head>
         <title>Netflix SignIn</title>
       </Head>
-
       <header className={styles.header}>
         <div className={styles.headerWrapper}>
           <Link className={styles.logoLink} href="/">
@@ -96,18 +92,15 @@ const Login = () => {
           </Link>
         </div>
       </header>
-
       <main className={styles.main}>
         <div className={styles.mainWrapper}>
           <h1 className={styles.signinHeader}>Sign In</h1>
-
           <input
             type="text"
             placeholder="Email address"
             className={styles.emailInput}
             onChange={handleOnChangeEmail}
           />
-
           <p className={styles.userMsg}>{userMsg}</p>
           <button onClick={handleLoginWithEmail} className={styles.loginBtn}>
             {isLoading ? "Loading..." : "Sign In"}
@@ -117,5 +110,4 @@ const Login = () => {
     </div>
   );
 };
-
 export default Login;

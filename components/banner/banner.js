@@ -1,13 +1,11 @@
-import styles from "./banner.module.css";
-import { useRouter } from "next/router";
 import Image from "next/image";
-
+import { useRouter } from "next/router";
+import styles from "./banner.module.css";
 const Banner = (props) => {
   const { title, subTitle, imgUrl, videoId } = props;
   const router = useRouter();
 
   const handleOnPlay = () => {
-    console.log("handleOnPlay");
     router.push(`video/${videoId}`);
   };
   return (
@@ -36,16 +34,10 @@ const Banner = (props) => {
       <div
         className={styles.bannerImg}
         style={{
-          backgroundImage: `url(${imgUrl})`,
-          width: "100%",
-          height: "100%",
-          position: "absolute",
-          backgroundSize: "cover",
-          backgroundPosition: "50% 50%",
+          backgroundImage: `url(${imgUrl}`,
         }}
       ></div>
     </div>
   );
 };
-
 export default Banner;

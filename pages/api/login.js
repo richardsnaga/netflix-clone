@@ -7,8 +7,9 @@ export default async function login(req, res) {
     try {
       const auth = req.headers.authorization;
       const didToken = auth ? auth.substr(7) : "";
+
       const metadata = await magicAdmin.users.getMetadataByToken(didToken);
-      console.log({ metadata });
+
       const token = jwt.sign(
         {
           ...metadata,
@@ -22,7 +23,6 @@ export default async function login(req, res) {
         },
         process.env.JWT_SECRET
       );
-
       const isNewUserQuery = await isNewUser(token, metadata.issuer);
       isNewUserQuery && (await createNewUser(token, metadata));
       setTokenCookie(token, res);

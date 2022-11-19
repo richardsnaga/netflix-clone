@@ -4,7 +4,6 @@ import {
   insertStats,
 } from "../../lib/db/hasura";
 import { verifyToken } from "../../lib/utils";
-
 export default async function stats(req, resp) {
   try {
     const token = req.cookies.token;
@@ -17,7 +16,6 @@ export default async function stats(req, resp) {
         const userId = await verifyToken(token);
         const findVideo = await findVideoIdByUser(token, userId, videoId);
         const doesStatsExist = findVideo?.length > 0;
-
         if (req.method === "POST") {
           const { favourited, watched = true } = req.body;
           if (doesStatsExist) {
@@ -31,7 +29,6 @@ export default async function stats(req, resp) {
             resp.send({ data: response });
           } else {
             // add it
-            console.log({ watched, userId, videoId, favourited });
             const response = await insertStats(token, {
               watched,
               userId,

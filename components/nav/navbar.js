@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import styles from "./navbar.module.css";
-
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
-
 import { magic } from "../../lib/magic-client";
-
 const NavBar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [username, setUsername] = useState("");
@@ -14,20 +11,21 @@ const NavBar = () => {
   const router = useRouter();
 
   useEffect(() => {
-    async function getUsername() {
+    const applyUsernameInNav = async () => {
       try {
         const { email, issuer } = await magic.user.getMetadata();
         const didToken = await magic.user.getIdToken();
-        console.log({ didToken });
         if (email) {
           setUsername(email);
+          setDidToken(didToken);
         }
       } catch (error) {
-        console.log("Error retrieving email:", error);
+        console.error("Error retrieving email", error);
       }
-    }
-    getUsername();
+    };
+    applyUsernameInNav();
   }, []);
+
   const handleOnClickHome = (e) => {
     e.preventDefault();
     router.push("/");
@@ -42,7 +40,6 @@ const NavBar = () => {
   };
   const handleSignout = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch("/api/logout", {
         method: "POST",
@@ -51,7 +48,6 @@ const NavBar = () => {
           "Content-Type": "application/json",
         },
       });
-
       const res = await response.json();
     } catch (error) {
       console.error("Error logging out", error);
@@ -73,7 +69,6 @@ const NavBar = () => {
             </div>
           </a>
         </Link>
-
         <ul className={styles.navItems}>
           <li className={styles.navItem} onClick={handleOnClickHome}>
             Home
@@ -94,7 +89,6 @@ const NavBar = () => {
                 height="24px"
               />
             </button>
-
             {showDropdown && (
               <div className={styles.navDropdown}>
                 <div>
