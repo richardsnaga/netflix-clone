@@ -14,15 +14,15 @@ import {
 import { redirectUser } from "../utils/redirectUser";
 export async function getServerSideProps(context) {
   const { userId, token } = await redirectUser(context);
-  if (!userId) {
-    return {
-      props: {},
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
+  // if (!userId) {
+  //   return {
+  //     props: {},
+  //     redirect: {
+  //       destination: "/login",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
   const watchItAgainVideos = await getWatchItAgainVideos(userId, token);
 
   const disneyVideos = await getVideos("disney trailer");
